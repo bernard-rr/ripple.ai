@@ -12,7 +12,7 @@ export default function App() {
   const handleGenerate = useCallback(async (prompt, diagramType) => {
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:8000/api/generate-diagram', {
+      const response = await fetch('https://f6l4fd-8000.csb.app/api/generate-diagram', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

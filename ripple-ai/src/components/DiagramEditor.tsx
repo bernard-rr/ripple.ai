@@ -10,6 +10,7 @@ import {
 } from "./ui/select";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
+import { toast } from "sonner";
 
 interface DiagramEditorProps {
   onGenerate: (prompt: string, diagramType: string) => Promise<void>;
@@ -20,10 +21,18 @@ export function DiagramEditor({ onGenerate, isLoading }: DiagramEditorProps) {
   const [prompt, setPrompt] = useState("");
   const [diagramType, setDiagramType] = useState("flowchart");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!prompt.trim()) return;
-    onGenerate(prompt, diagramType);
+    if (!prompt.trim()) {
+      toast.error("Please enter a description for your diagram");
+      return;
+    }
+    try {
+      await onGenerate(prompt, diagramType);
+    } catch (error) {
+      console.error("Error in handleSubmit:", error);
+      toast.error("Failed to generate diagram");
+    }
   };
 
   return (
