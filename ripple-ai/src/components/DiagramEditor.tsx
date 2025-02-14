@@ -28,7 +28,12 @@ export function DiagramEditor({ onGenerate, isLoading }: DiagramEditorProps) {
       return;
     }
     try {
-      await onGenerate(prompt, diagramType);
+      // Sanitize the prompt before sending
+      const sanitizedPrompt = prompt.replace(
+        /[\u0000-\u001F\u007F-\u009F]/g,
+        ""
+      );
+      await onGenerate(sanitizedPrompt, diagramType);
     } catch (error) {
       console.error("Error in handleSubmit:", error);
       toast.error("Failed to generate diagram");
