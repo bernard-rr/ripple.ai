@@ -1,10 +1,12 @@
+import path from "path";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here -  you can keep any other options you had inside */
+  /* config options here */
   webpack: (config) => {
-    config.resolve.alias["@"] = require("path").join(__dirname);
+    config.resolve.alias["@"] = path.join(__dirname);
     return config;
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
